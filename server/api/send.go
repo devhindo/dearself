@@ -38,5 +38,12 @@ func RUN() {
 		})
 	})
 
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "pong",
+			"status":  http.StatusOK,
+		})
+	})
+
 	r.Run() // listen and serve on
 }
