@@ -1,24 +1,18 @@
 import { google } from "googleapis";
 
+const send_email_api_url = ""
+
 export default function Page() {
   async function create(formData: FormData) {
     "use server";
-
-    const OAuth2 = google.auth.OAuth2;
-    const oauth2Client = new OAuth2(
-      process.env.CLIENT_ID,
-      process.env.CLIENT_SECRET,
-      process.env.REDIRECT_URL
-    );
-
-    await fetch("https://api.resend.com/emails", {
+    await fetch(send_email_api_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.RESEND_KEY}`,
+        Authorization: `Bearer ${process.env.RESEND_KEY}`, // todo change this
       },
       body: JSON.stringify({
-        from: "Someone <dearselfapp@gmail.com>",
+        from: formData.get("name"),
         to: formData.get("to"),
         subject: formData.get("subject"),
         text: formData.get("text"),
@@ -29,6 +23,10 @@ export default function Page() {
   return (
     <div className="dark:bg-gray-800 flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <form action={create} className="mt-8 space-y-6 w-full max-w-md">
+    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+        Name
+        <input type="text" name="name" className="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-4 py-2" />
+      </label>
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
         Subject
         <input type="text" name="subject" className="mt-1 block w-full dark:bg-gray-700 dark:text-white dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-4 py-2" />
