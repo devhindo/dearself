@@ -26,17 +26,20 @@ func RUN() {
 			"text":    email.Text,
         })
 
+		fmt.Println(email.Name)
         // Print the JSON to the console
         jsonBytes, _ := json.Marshal(email)
         fmt.Println(string(jsonBytes))
 
-		m := types.Email{
-			Name:    email.Name,
-			Subject: email.Subject,
-			From:    email.From,
-			To:      email.To,
-			Text:    email.Text,
+		var m types.Email
+
+		err := json.Unmarshal(jsonBytes, &m)	
+		
+		if err != nil {
+			fmt.Println(err)
 		}
+
+		fmt.Println("fffffffff",m)
 
 		mail.SendEmail(m)
 		

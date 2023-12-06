@@ -27,7 +27,7 @@ func SendEmail(e types.Email) {
 			},
 			Subject:  e.Subject,
 			TextPart: e.Text,
-			HTMLPart: e.Text,
+			HTMLPart: "<h3>Dear " + e.From + ",</h3><br />" + e.Text + "<br /><br />Sincerely,<br />yourself",
 			//CustomID: "AppGettingStartedTest",
 		},
 	}
