@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/devhindo/dearself/server/types"
+	"github.com/devhindo/dearself/server/mail"
 )
 
 func RUN() {
@@ -22,13 +23,24 @@ func RUN() {
 			"name":    email.Name,
 			"subject": email.Subject,
 			"from":    email.From,
-			"to":      email.To,
 			"text":    email.Text,
         })
 
         // Print the JSON to the console
         jsonBytes, _ := json.Marshal(email)
         fmt.Println(string(jsonBytes))
+
+		m := types.Email{
+			Name:    email.Name,
+			Subject: email.Subject,
+			From:    email.From,
+			To:      email.To,
+			Text:    email.Text,
+		}
+
+		mail.SendEmail(m)
+		
+
 	})
 
 	r.GET("/send", func(c *gin.Context) {

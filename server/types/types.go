@@ -2,9 +2,9 @@ package types
 
 
 type Email struct {
-	Name string 
-	Subject string
-	From string //todo set default value 
-	To string
-	Text string
+	Name string `json:"name"`
+	Subject string `json:"subject"`
+	From string `json:"from"` 
+	To string `json:"to"`
+	Text string `json:"text"`
 }

@@ -1,10 +1,11 @@
 import { google } from "googleapis";
 
-const send_email_api_url = ""
+const send_email_api_url = "http://localhost:8080/send"
 
 export default function Page() {
   async function create(formData: FormData) {
     "use server";
+    console.log(formData);
     await fetch(send_email_api_url, {
       method: "POST",
       headers: {

@@ -11,12 +11,13 @@ import (
 
 
 func SendEmail(e types.Email) {
+	fmt.Println("Sending email to", e.To)
 	mailjetClient := mailjet.NewMailjetClient(os.Getenv("MAILJET_API_KEY"), os.Getenv("MAILJET_SECRET_KEY"))
 	messagesInfo := []mailjet.InfoMessagesV31{
 		{
 			From: &mailjet.RecipientV31{
 				Email: "dearselfapp@gmail.com",
-				Name:  "dear",
+				Name:  "dearself",
 			},
 			To: &mailjet.RecipientsV31{
 				mailjet.RecipientV31{
@@ -24,10 +25,10 @@ func SendEmail(e types.Email) {
 					Name:  e.Name,
 				},
 			},
-			Subject:  "Greetings from Mailjet.",
-			TextPart: "My first Mailjet email",
-			HTMLPart: "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
-			CustomID: "AppGettingStartedTest",
+			Subject:  e.Subject,
+			TextPart: e.Text,
+			HTMLPart: e.Text,
+			//CustomID: "AppGettingStartedTest",
 		},
 	}
 	messages := mailjet.MessagesV31{Info: messagesInfo}
