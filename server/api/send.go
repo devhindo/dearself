@@ -1,13 +1,14 @@
 package api
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/devhindo/dearself/server/db"
 	"github.com/devhindo/dearself/server/types"
-	"github.com/devhindo/dearself/server/mail"
+	"github.com/gin-gonic/gin"
+	//"github.com/devhindo/dearself/server/mail"
 )
 
 func RUN() {
@@ -22,8 +23,9 @@ func RUN() {
         c.JSON(http.StatusOK, gin.H{
 			"name":    email.Name,
 			"subject": email.Subject,
-			"from":    email.From,
+			"to":      email.To,
 			"text":    email.Text,
+			"date":    email.Date,
         })
 
 		fmt.Println(email.Name)
@@ -41,7 +43,9 @@ func RUN() {
 
 		fmt.Println("fffffffff",m)
 
-		mail.SendEmail(m)
+		db.AddMail(m)
+
+		//mail.SendEmail(m)
 		
 
 	})

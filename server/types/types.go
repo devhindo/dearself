@@ -2,9 +2,10 @@ package types
 
 
 type Email struct {
+	Id 		string `json:"id"`
 	Name 	string `json:"name"`
 	Subject string `json:"subject"`
-	From 	string `json:"from"` 
 	To 		string `json:"to"`
 	Text 	string `json:"text"`
+	Date 	string `json:"date"`
 }
