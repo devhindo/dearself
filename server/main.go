@@ -1,18 +1,24 @@
 package main
 
 import (
-	"github.com/devhindo/dearself/server/config"
-	"github.com/devhindo/dearself/server/api"
+	//"fmt"
+	//"net/http"
+	//"time"
 
-	"fmt"
-	"net/http"
-	"time"
+	"github.com/devhindo/dearself/server/config"
+	//"github.com/devhindo/dearself/server/api"
+    "github.com/devhindo/dearself/server/db"
 )
 
 // todo make it a gin framework
 // todo also use the todo extension
 
 func main() {
+
+    config.LoadEnv()
+    db.RunScheduledMailsJob()
+
+    /*
 
 	go func() {
         for {
@@ -27,8 +33,16 @@ func main() {
         }
     }()
 
-	config.LoadEnv()
+    go func() {
+        for {
+            db.RunScheduledMailsJob()
+            // send scheduled mails every 24 hours
+            time.Sleep(24 * time.Hour)
+        }
+    }()
+
 	api.RUN()
+    */
 }
 
 
