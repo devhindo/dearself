@@ -23,20 +23,11 @@ func AddMail(m Emaildb) {
 	supabaseKey := os.Getenv("SUPABASE_PRIVATE_KEY_SERVICE_ROLE")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
-	
-	mdb := Emaildb{
-		Name:    m.Name,
-		Subject: m.Subject,
-		To:      m.To,
-		Text:    m.Text,
-		Date:    m.Date,
-	}
-	
 	var results []types.Email
 
 	// todo make m.CreatedAt = nil
 	// todo find todo extension
-	err := supabase.DB.From("emails").Insert(mdb).Execute(&results)
+	err := supabase.DB.From("emails").Insert(m).Execute(&results)
 	if err != nil {
 		fmt.Println("cant insert email to db" + err.Error())
 	}
