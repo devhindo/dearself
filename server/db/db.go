@@ -38,7 +38,7 @@ func AddMail(m Emaildb) {
 	// todo find todo extension
 	err := supabase.DB.From("emails").Insert(mdb).Execute(&results)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("cant insert email to db" + err.Error())
 	}
 
 	fmt.Println(results)
