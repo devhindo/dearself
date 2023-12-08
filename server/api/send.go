@@ -33,7 +33,7 @@ func RUN() {
         jsonBytes, _ := json.Marshal(email)
         fmt.Println(string(jsonBytes))
 
-		var m types.Email
+		var m db.Emaildb
 
 		err := json.Unmarshal(jsonBytes, &m)	
 		

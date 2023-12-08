@@ -9,20 +9,20 @@ import (
 )
 
 type Emaildb struct {
-	Id 	int    `json:"id"`
 	Name    string `json:"name"`
-	CreatedAt string `json:"created_at"`
 	Subject string `json:"subject"`
 	To      string `json:"to"`
 	Text    string `json:"text"`
 	Date   string `json:"date"`
 }
 
-func AddMail(m types.Email) {
+
+func AddMail(m Emaildb) {
 	supabaseUrl := os.Getenv("SUPABASE_URL")
 	supabaseKey := os.Getenv("SUPABASE_PRIVATE_KEY_SERVICE_ROLE")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
+	
 	mdb := Emaildb{
 		Name:    m.Name,
 		Subject: m.Subject,
@@ -30,9 +30,11 @@ func AddMail(m types.Email) {
 		Text:    m.Text,
 		Date:    m.Date,
 	}
-
+	
 	var results []types.Email
 
+	// todo make m.CreatedAt = nil
+	// todo find todo extension
 	err := supabase.DB.From("emails").Insert(mdb).Execute(&results)
 	if err != nil {
 		fmt.Println(err)

@@ -1,12 +1,12 @@
 package main
 
 import (
-	//"fmt"
-	//"net/http"
-	//"time"
+	"fmt"
+	"net/http"
+	"time"
 
 	"github.com/devhindo/dearself/server/config"
-	//"github.com/devhindo/dearself/server/api"
+	"github.com/devhindo/dearself/server/api"
     "github.com/devhindo/dearself/server/db"
 )
 
@@ -18,7 +18,7 @@ func main() {
     config.LoadEnv()
     db.RunScheduledMailsJob()
 
-    /*
+    
 
 	go func() {
         for {
@@ -42,7 +42,7 @@ func main() {
     }()
 
 	api.RUN()
-    */
+    
 }
 
 

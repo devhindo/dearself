@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	supa "github.com/nedpals/supabase-go"
+	"github.com/devhindo/dearself/server/types"
 )
 
 
@@ -14,7 +15,7 @@ func RunScheduledMailsJob() {
 	supabaseKey := os.Getenv("SUPABASE_PRIVATE_KEY_SERVICE_ROLE")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
-	var results []Emaildb
+	var results []types.Email
 
 	err := supabase.DB.From("emails").Select("*").Execute(&results)
 
@@ -26,6 +27,7 @@ func RunScheduledMailsJob() {
 	fmt.Println(results)
 
 	for _, mail := range results {
+		
 		fmt.Println(mail)
 	}
 }
