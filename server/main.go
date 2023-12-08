@@ -10,9 +10,6 @@ import (
     "github.com/devhindo/dearself/server/db"
 )
 
-// todo make it a gin framework
-// todo also use the todo extension
-
 func main() {
 
     config.LoadEnv()
@@ -42,7 +39,6 @@ func main() {
     }()
 
 	api.RUN()
-    
 }
 
 
