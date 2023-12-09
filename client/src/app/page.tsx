@@ -1,5 +1,5 @@
-const send_email_api_url = "http://localhost:8080/send"
-//const send_email_api_url = "https://dearself.onrender.com/send"
+//const send_email_api_url = "http://localhost:8080/send"
+const send_email_api_url = "https://dearself.onrender.com/send"
 
 export default function Page() {
   async function create(formData: FormData) {
