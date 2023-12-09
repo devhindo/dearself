@@ -3,10 +3,10 @@ package db
 import (
 	"fmt"
 	"os"
-	"strconv"
 
-	"github.com/devhindo/dearself/server/types"
 	supa "github.com/nedpals/supabase-go"
+	
+	"github.com/devhindo/dearself/server/types"
 )
 
 type Emaildb struct {
@@ -58,14 +58,14 @@ func GetMails(m types.Email) {
 	fmt.Println(results)
 }
 
-func DeleteMail(id int) error {
+func DeleteMail(id string) error {
 	supabaseUrl := os.Getenv("SUPABASE_URL")
 	supabaseKey := os.Getenv("SUPABASE_PRIVATE_KEY_SERVICE_ROLE")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
 	var results []types.Email
 
-	err := supabase.DB.From("emails").Delete().Eq("id", strconv.Itoa(id)).Execute(&results)
+	err := supabase.DB.From("emails").Delete().Eq("id", id).Execute(&results)
 
 	if err != nil {
 		return err

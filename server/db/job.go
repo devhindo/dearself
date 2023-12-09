@@ -1,13 +1,14 @@
 package db
 
 import (
-	"os"
 	"fmt"
+	"os"
 	"time"
+	"strconv"
 
-	supa "github.com/nedpals/supabase-go"
-	"github.com/devhindo/dearself/server/types"
 	"github.com/devhindo/dearself/server/mail"
+	"github.com/devhindo/dearself/server/types"
+	supa "github.com/nedpals/supabase-go"
 )
 
 
@@ -39,7 +40,7 @@ func RunScheduledMailsJob() {
 				fmt.Println(err)
 			} else {
 				fmt.Println("send mail created at " + m.CreatedAt + " successfully")
-				err = DeleteMail(m.Id)
+				err = DeleteMail(strconv.Itoa(m.Id))
 				if err != nil {
 					fmt.Println(err)
 				} else {
