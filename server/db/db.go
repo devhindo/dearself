@@ -5,7 +5,7 @@ import (
 	"os"
 
 	supa "github.com/nedpals/supabase-go"
-	
+
 	"github.com/devhindo/dearself/server/types"
 )
 
@@ -18,7 +18,7 @@ type Emaildb struct {
 }
 
 
-func AddMail(m Emaildb) {
+func AddMail(m Emaildb) error {
 	supabaseUrl := os.Getenv("SUPABASE_URL")
 	supabaseKey := os.Getenv("SUPABASE_PRIVATE_KEY_SERVICE_ROLE")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
@@ -37,9 +37,12 @@ func AddMail(m Emaildb) {
 	err := supabase.DB.From("emails").Insert(mdb).Execute(&results)
 	if err != nil {
 		fmt.Println("cant insert email to db" + err.Error())
+		return err
 	}
 
 	fmt.Println(results)
+
+	return nil
 }
 
 func GetMails(m types.Email) {

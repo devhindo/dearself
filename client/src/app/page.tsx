@@ -1,13 +1,11 @@
-import { google } from "googleapis";
-
-//const send_email_api_url = "http://localhost:8080/send"
-const send_email_api_url = "https://dearself.onrender.com/send"
+const send_email_api_url = "http://localhost:8080/send"
+//const send_email_api_url = "https://dearself.onrender.com/send"
 
 export default function Page() {
   async function create(formData: FormData) {
     "use server";
     console.log(formData);
-    await fetch(send_email_api_url, {
+    const response = await fetch(send_email_api_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,6 +19,13 @@ export default function Page() {
         date: formData.get("date"),
       }),
     });
+
+    if (response.status === 200) {
+      console.log("Email scheduled successfully!")
+    } else {
+      console.log("There was an error scheduling the mail.")
+    }
+
     console.log("Email sent!");
   }
   return (
