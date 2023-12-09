@@ -18,16 +18,22 @@ type Emaildb struct {
 }
 
 
-func AddMail(m Emaildb) {
+func AddMail(m types.Email) {
 	supabaseUrl := os.Getenv("SUPABASE_URL")
 	supabaseKey := os.Getenv("SUPABASE_PRIVATE_KEY_SERVICE_ROLE")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
 	var results []types.Email
 
-	// todo make m.CreatedAt = nil
-	// todo find todo extension
-	err := supabase.DB.From("emails").Insert(m).Execute(&results)
+	mdb := Emaildb{
+		Name:    m.Name,
+		Subject: m.Subject,
+		To:      m.To,
+		Text:    m.Text,
+		Date:    m.Date,
+	}
+
+	err := supabase.DB.From("emails").Insert(mdb).Execute(&results)
 	if err != nil {
 		fmt.Println("cant insert email to db" + err.Error())
 	}
