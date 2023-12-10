@@ -33,12 +33,13 @@ func RUN() {
 		err = db.HandleMail(m)
 		if err != nil {
 			fmt.Println(err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error adding mail to database"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
         
 		
 		c.JSON(http.StatusOK, gin.H{
+			"message": "Email scheduled successfully to " + email.To + " at " + email.Date,
 			"name":    email.Name,
 			"subject": email.Subject,
 			"to":      email.To,

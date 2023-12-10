@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"time"
+	"errors"
 
 	supa "github.com/nedpals/supabase-go"
 
@@ -21,6 +22,9 @@ type Emaildb struct {
 
 func HandleMail(m Emaildb) error {
 	today := time.Now().Format("2006-01-02")
+	if m.Date < today {
+		return errors.New("you can't send a mail in the past")
+	}
 	if m.Date == today {
 		mail.SendEmail(types.Email{
 			Name:    m.Name,

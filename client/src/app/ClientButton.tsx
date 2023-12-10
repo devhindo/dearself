@@ -38,10 +38,12 @@ export default function ClientButton() {
                         onClick={async () => {
                             const formData = new FormData(document.querySelector("form")!);
                             const response = await create(formData);
-                            if (response === 200) {
-                                alert("Email scheduled successfully!");
+                            console.log("resss")
+                            console.log("resbponse" + JSON.stringify(response))
+                            if (response.error) {
+                                alert(response.error);
                             } else {
-                                alert("There was an error scheduling the mail.");
+                                alert(response.message);
                             }
                         }}
                     >

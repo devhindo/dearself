@@ -1,11 +1,10 @@
 "use server";
 
-//const send_email_api_url = "http://localhost:8080/send"
-const send_email_api_url = "https://dearself.onrender.com/send"
+const send_email_api_url = "http://localhost:8080/send"
+//const send_email_api_url = "https://dearself.onrender.com/send"
 
-export async function create(formData: FormData): Promise<number> {
+export async function create(formData: FormData): Promise<any> {
         "use server";
-        console.log(formData);
         const response = await fetch(send_email_api_url, {
             method: "POST",
             headers: {
@@ -21,6 +20,5 @@ export async function create(formData: FormData): Promise<number> {
             }),
         });
 
-        console.log("Email sent!");
-        return response.status;
+        return response.json();
 }
