@@ -3,9 +3,11 @@ package db
 import (
 	"fmt"
 	"os"
+	"time"
 
 	supa "github.com/nedpals/supabase-go"
 
+	"github.com/devhindo/dearself/server/mail"
 	"github.com/devhindo/dearself/server/types"
 )
 
@@ -17,6 +19,20 @@ type Emaildb struct {
 	Date   string `json:"date"`
 }
 
+func HandleMail(m Emaildb) error {
+	today := time.Now().Format("2006-01-02")
+	if m.Date == today {
+		mail.SendEmail(types.Email{
+			Name:    m.Name,
+			Subject: m.Subject,
+			To:      m.To,
+			Text:    m.Text,
+			Date:    m.Date,
+		})
+		return nil
+	} 
+	return AddMail(m)
+}
 
 func AddMail(m Emaildb) error {
 	supabaseUrl := os.Getenv("SUPABASE_URL")
@@ -77,3 +93,4 @@ func DeleteMail(id string) error {
 	fmt.Println(results)
 	return nil
 }
+

@@ -30,7 +30,7 @@ func RUN() {
 			return
 		}
 
-		err = db.AddMail(m)
+		err = db.HandleMail(m)
 		if err != nil {
 			fmt.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error adding mail to database"})
